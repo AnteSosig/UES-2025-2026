@@ -1,0 +1,158 @@
+<div class="edit-container" *ngIf="centarDetails">
+  <div class="page-header">
+    <h1>✏️ Izmeni Centar</h1>
+    <h2 class="centar-name">{{ centarDetails.ime }}</h2>
+  </div>
+
+  <!-- Success or error messages -->
+  <div *ngIf="successMessage" class="alert alert-success">
+    <span class="alert-icon">✓</span> {{ successMessage }}
+  </div>
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    <span class="alert-icon">✕</span> {{ errorMessage }}
+  </div>
+
+  <!-- Basic Information Form -->
+  <div class="form-section">
+    <h3 class="section-title">📋 Osnovne Informacije</h3>
+    <form [formGroup]="editForm" (ngSubmit)="onSubmitEdit()">
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="ime">Naziv centra</label>
+          <input id="ime" type="text" formControlName="ime" placeholder="Unesite naziv...">
+        </div>
+
+        <div class="form-group">
+          <label for="grad">Grad</label>
+          <input id="grad" type="text" formControlName="grad" placeholder="Unesite grad...">
+        </div>
+
+        <div class="form-group full-width">
+          <label for="adresa">Adresa</label>
+          <input id="adresa" type="text" formControlName="adresa" placeholder="Unesite adresu...">
+        </div>
+
+        <div class="form-group full-width">
+          <label for="ophis">Opis</label>
+          <textarea id="ophis" formControlName="ophis" rows="4" placeholder="Unesite opis centra..."></textarea>
+        </div>
+
+        <div class="form-group checkbox-group">
+          <label class="checkbox-label">
+            <input id="obrisi" type="checkbox" formControlName="obrisi">
+            <span>Aktivan centar</span>
+          </label>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary" [disabled]="editForm.invalid">
+        💾 Sačuvaj Izmene
+      </button>
+    </form>
+  </div>
+
+  <!-- Disciplines Section -->
+  <div class="form-section">
+    <h3 class="section-title">🏃 Discipline</h3>
+    <form [formGroup]="disciplinaForm" (ngSubmit)="onSubmitDisciplina()">
+      <div class="form-group">
+        <label for="disciplina">Discipline (odvojene zarezom)</label>
+        <input id="disciplina" type="text" formControlName="disciplina" placeholder="npr. Fudbal, Košarka, Tenis...">
+        <small class="form-hint">Unesite discipline odvojene zarezima</small>
+      </div>
+      <button type="submit" class="btn btn-primary" [disabled]="disciplinaForm.invalid">
+        ✓ Ažuriraj Discipline
+      </button>
+    </form>
+  </div>
+
+  <!-- Work Hours Section -->
+  <div class="form-section">
+    <h3 class="section-title">🕐 Radno Vreme</h3>
+    
+    <!-- Display existing work hours -->
+    <div class="work-hours-list" *ngIf="currentWorkHours.length > 0">
+      <h4>Postojeća radna vremena:</h4>
+      <ul class="hours-list">
+        <li *ngFor="let workHour of currentWorkHours" class="hour-item">
+          <div class="hour-info">
+            <strong>{{ workHour.danNedelje }}:</strong> 
+            <span>{{ workHour.vremeOtvaranja }} - {{ workHour.vremeZatvaranja }}</span>
+          </div>
+          <button type="button" (click)="deleteWorkHour(workHour.id)" class="btn btn-danger btn-sm">
+            🗑️ Obriši
+          </button>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Add work hours form -->
+    <form [formGroup]="workHoursForm" (ngSubmit)="onSubmitWorkHours()">
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="danNedelje">Dan u nedelji</label>
+          <select id="danNedelje" formControlName="danNedelje">
+            <option *ngFor="let day of daysOfWeek" [value]="day">{{ day }}</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="vremeOtvaranja">Vreme otvaranja</label>
+          <input id="vremeOtvaranja" type="time" formControlName="vremeOtvaranja">
+        </div>
+
+        <div class="form-group">
+          <label for="vremeZatvaranja">Vreme zatvaranja</label>
+          <input id="vremeZatvaranja" type="time" formControlName="vremeZatvaranja">
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-secondary" [disabled]="workHoursForm.invalid">
+        ➕ Dodaj Radno Vreme
+      </button>
+    </form>
+  </div>
+
+  <!-- File Upload Section -->
+  <div class="form-section">
+    <h3 class="section-title">📁 Mediji</h3>
+    
+    <div *ngIf="uploadSuccessMessage" class="alert alert-success">
+      <span class="alert-icon">✓</span> {{ uploadSuccessMessage }}
+    </div>
+    
+    <div *ngIf="uploadErrorMessage" class="alert alert-danger">
+      <span class="alert-icon">✕</span> {{ uploadErrorMessage }}
+    </div>
+
+    <div class="upload-area">
+      <div class="form-group">
+        <label for="imageInput">🖼️ Slika centra (JPG/PNG)</label>
+        <input type="file" id="imageInput" accept="image/jpeg,image/png" (change)="onImageSelected($event)" class="file-input">
+        <small *ngIf="selectedImage" class="file-selected">✓ Izabrana slika: {{ selectedImage.name }}</small>
+      </div>
+
+      <div class="form-group">
+        <label for="pdfInput">📄 PDF Dokument</label>
+        <input type="file" id="pdfInput" accept="application/pdf" (change)="onPdfSelected($event)" class="file-input">
+        <small *ngIf="selectedPdf" class="file-selected">✓ Izabran PDF: {{ selectedPdf.name }}</small>
+      </div>
+
+      <button type="button" (click)="onUploadFiles()" [disabled]="!selectedImage && !selectedPdf" class="btn btn-primary">
+        📤 Upload Fajlove
+      </button>
+    </div>
+
+    <div *ngIf="centarDetails?.imagePath || centarDetails?.pdfPath" class="current-files">
+      <h4>Trenutno postavljeni fajlovi:</h4>
+      <ul>
+        <li *ngIf="centarDetails?.imagePath">
+          <span class="file-icon">🖼️</span> Slika: {{ centarDetails.imagePath }}
+        </li>
+        <li *ngIf="centarDetails?.pdfPath">
+          <span class="file-icon">📄</span> PDF: {{ centarDetails.pdfPath }}
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
