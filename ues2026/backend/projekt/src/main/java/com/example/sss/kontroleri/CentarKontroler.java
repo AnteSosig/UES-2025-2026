@@ -1110,7 +1110,9 @@ public class CentarKontroler {
                 dto.setDatumKreacije(doc.getDatumKreacije());
                 dto.setAdresa(doc.getAdresa());
                 dto.setGrad(doc.getGrad());
-                dto.setRating(doc.getRating());
+                if (doc.getRating() != null && doc.getRating() != 11) {
+                    dto.setRating(doc.getRating());
+                }
                 
                 // Set image URL instead of path
                 if (doc.getImagePath() != null && !doc.getImagePath().isEmpty()) {
