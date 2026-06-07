@@ -1,11 +1,11 @@
 <div class="container">
-    <h2>Pretraga Mesta</h2>
+    <h2>Pretraga Objekata (Search Centers)</h2>
     
     <!-- UNIFIED SEARCH BAR -->
     <div class="unified-search mb-4">
       <form [formGroup]="searchForm">
         <div class="form-group">
-          <label for="query"><strong>Pretraži mesta po nazivu, opisu ili sadržaju PDF-a:</strong></label>
+          <label for="query"><strong>Pretraži objekte po nazivu, opisu ili sadržaju PDF-a:</strong></label>
           <div class="search-wrapper">
             <input 
               formControlName="query" 
@@ -36,7 +36,7 @@
 
       <!-- City -->
       <div class="form-group">
-        <label for="grad">Grad</label>
+        <label for="grad">Grad (City)</label>
         <input formControlName="grad" id="grad" class="form-control" type="text" placeholder="Enter city">
       </div>
 
@@ -44,13 +44,13 @@
       <div class="row">
         <div class="col-md-6">
           <div class="form-group">
-            <label for="ocenamin">Minimalna Ocena</label>
+            <label for="ocenamin">Minimalna Ocena (Min Rating)</label>
             <input formControlName="ocenamin" id="ocenamin" class="form-control" type="number" placeholder="e.g. 0">
           </div>
         </div>
         <div class="col-md-6">
           <div class="form-group">
-            <label for="ocenamax">Maksimalna Ocena</label>
+            <label for="ocenamax">Maksimalna Ocena (Max Rating)</label>
             <input formControlName="ocenamax" id="ocenamax" class="form-control" type="number" placeholder="e.g. 5">
           </div>
         </div>
@@ -67,13 +67,13 @@
       <button (click)="addDiscipline()" type="button" class="btn btn-primary mt-2">Add Discipline</button>
 
       <!-- Working Hours in a 3x3 Grid -->
-      <h5 class="mt-4">Radno Vreme</h5>
+      <h5 class="mt-4">Radno Vreme (Working Hours)</h5>
       <div class="row">
         <!-- Column 1 -->
         <div class="col-md-4">
           <!-- Ponedeljak -->
           <div class="form-group">
-            <label>Ponedeljak</label>
+            <label>Ponedeljak (Monday)</label>
             <div formArrayName="ponedeljak">
               <div *ngFor="let control of getWorkingHours('ponedeljak').controls; let i = index" class="d-flex mb-2">
                 <input [formControlName]="i" class="form-control" placeholder="e.g. 08:00-12:00">
@@ -85,7 +85,7 @@
 
           <!-- Utorak -->
           <div class="form-group">
-            <label>Utorak</label>
+            <label>Utorak (Tuesday)</label>
             <div formArrayName="utorak">
               <div *ngFor="let control of getWorkingHours('utorak').controls; let i = index" class="d-flex mb-2">
                 <input [formControlName]="i" class="form-control" placeholder="e.g. 08:00-12:00">
@@ -97,7 +97,7 @@
 
           <!-- Sreda -->
           <div class="form-group">
-            <label>Sreda</label>
+            <label>Sreda (Wednesday)</label>
             <div formArrayName="sreda">
               <div *ngFor="let control of getWorkingHours('sreda').controls; let i = index" class="d-flex mb-2">
                 <input [formControlName]="i" class="form-control" placeholder="e.g. 08:00-12:00">
@@ -112,7 +112,7 @@
         <div class="col-md-4">
           <!-- Cetvrtak -->
           <div class="form-group">
-            <label>Četvrtak</label>
+            <label>Cetvrtak (Thursday)</label>
             <div formArrayName="cetvrtak">
               <div *ngFor="let control of getWorkingHours('cetvrtak').controls; let i = index" class="d-flex mb-2">
                 <input [formControlName]="i" class="form-control" placeholder="e.g. 08:00-12:00">
@@ -124,7 +124,7 @@
 
           <!-- Petak -->
           <div class="form-group">
-            <label>Petak</label>
+            <label>Petak (Friday)</label>
             <div formArrayName="petak">
               <div *ngFor="let control of getWorkingHours('petak').controls; let i = index" class="d-flex mb-2">
                 <input [formControlName]="i" class="form-control" placeholder="e.g. 08:00-12:00">
@@ -136,7 +136,7 @@
 
           <!-- Subota -->
           <div class="form-group">
-            <label>Subota</label>
+            <label>Subota (Saturday)</label>
             <div formArrayName="subota">
               <div *ngFor="let control of getWorkingHours('subota').controls; let i = index" class="d-flex mb-2">
                 <input [formControlName]="i" class="form-control" placeholder="e.g. 08:00-12:00">
@@ -151,7 +151,7 @@
         <div class="col-md-4">
           <!-- Nedelja -->
           <div class="form-group">
-            <label>Nedelja</label>
+            <label>Nedelja (Sunday)</label>
             <div formArrayName="nedelja">
               <div *ngFor="let control of getWorkingHours('nedelja').controls; let i = index" class="d-flex mb-2">
                 <input [formControlName]="i" class="form-control" placeholder="e.g. 08:00-12:00">
@@ -164,12 +164,12 @@
       </div>
 
       <!-- Submit Button -->
-      <button type="submit" class="btn btn-success mt-4">🔍 Pretraži sa Filterima</button>
+      <button type="submit" class="btn btn-success mt-4">🔍 Pretraži sa Filterima (Search with Filters)</button>
     </form>
 
     <!-- Display Results -->
     <div *ngIf="centri.length > 0" class="mt-4">
-      <h3>Rezultati: {{ centri.length }}</h3>
+      <h3>Rezultati (Results): {{ centri.length }}</h3>
       <div class="row">
         <div *ngFor="let centar of centri" class="col-md-6 mb-3">
           <div class="card">
@@ -194,7 +194,7 @@
     </div>
 
     <div *ngIf="centri.length === 0 && !isSearching" class="alert alert-info mt-4">
-      Nije pronađeno nijedno mesto. Pokušajte sa drugačijom pretragom.
+      Nije pronađen nijedan objekat. Pokušajte sa drugačijom pretragom.
     </div>
 
     <!-- Display Error Messages -->

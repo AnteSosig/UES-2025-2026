@@ -28,9 +28,9 @@
       
       <!-- Display Image if available -->
       <div *ngIf="centarDetails.imagePath" class="image-container">
-        <h5>Slika mesta:</h5>
+        <h5>Slika centra:</h5>
         <img [src]="getImageUrl(centarDetails.imagePath)" 
-             alt="Slika mesta"
+             alt="Centar Image" 
              style="max-width: 300px; max-height: 300px; width: auto; height: auto; border-radius: 15px; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); object-fit: contain;">
       </div>
 
@@ -46,7 +46,7 @@
       </div>
 
       <div *ngIf="!centarDetails.imagePath && !centarDetails.pdfPath && !centarDetails.hasPdf" class="no-media">
-        <p>Nema postavljenih medija za ovo mesto.</p>
+        <p>Nema postavljenih medija za ovaj centar.</p>
       </div>
     </div>
 
@@ -71,7 +71,7 @@
 
     <!-- Edit Button (only visible for ADMIN) -->
     <button *ngIf="uloga === 'ADMIN'" (click)="onEditClick()" class="btn btn-warning admin-btn">
-      ✏️ Izmeni mesto
+      ✏️ Izmeni centar
     </button>
 
     <!-- Reservation Form (only visible for KORISNIK) -->
@@ -116,7 +116,7 @@
         <form [formGroup]="reviewForm" (ngSubmit)="onSubmitReview()">
           <div class="review-grid">
             <div class="review-item">
-              <label>Nastup:</label>
+              <label>Opremljenost:</label>
               <div class="rating-options">
                 <div *ngFor="let num of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]" class="rating-option">
                   <input type="radio" [id]="'opremljenost-' + num" formControlName="opremljenost" [value]="num">
@@ -126,7 +126,7 @@
             </div>
 
             <div class="review-item">
-              <label>Zvuk i svetlo:</label>
+              <label>Osoblje:</label>
               <div class="rating-options">
                 <div *ngFor="let num of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]" class="rating-option">
                   <input type="radio" [id]="'osoblje-' + num" formControlName="osoblje" [value]="num">
@@ -136,7 +136,7 @@
             </div>
 
             <div class="review-item">
-              <label>Prostor:</label>
+              <label>Higijena:</label>
               <div class="rating-options">
                 <div *ngFor="let num of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]" class="rating-option">
                   <input type="radio" [id]="'higijena-' + num" formControlName="higijena" [value]="num">
@@ -146,7 +146,7 @@
             </div>
 
             <div class="review-item">
-              <label>Ukupan utisak:</label>
+              <label>Prostorija:</label>
               <div class="rating-options">
                 <div *ngFor="let num of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]" class="rating-option">
                   <input type="radio" [id]="'prostorija-' + num" formControlName="prostorija" [value]="num">

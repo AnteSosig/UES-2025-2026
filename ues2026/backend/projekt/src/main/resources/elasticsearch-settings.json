@@ -36,6 +36,17 @@
           "Џ => Dž", "џ => dž",
           "Ш => Š", "ш => š"
         ]
+      },
+      "diacritic_fold": {
+        "type": "mapping",
+        "mappings": [
+          "č => c", "Č => C",
+          "ć => c", "Ć => C",
+          "š => s", "Š => S",
+          "ž => z", "Ž => Z",
+          "đ => d", "Đ => D",
+          "dž => dz", "Dž => Dz"
+        ]
       }
     },
     "tokenizer": {
@@ -60,7 +71,8 @@
       "serbian_custom_analyzer": {
         "type": "custom",
         "char_filter": [
-          "cyrillic_to_latin"
+          "cyrillic_to_latin",
+          "diacritic_fold"
         ],
         "tokenizer": "standard",
         "filter": [
@@ -71,7 +83,8 @@
       "serbian_ngram_analyzer": {
         "type": "custom",
         "char_filter": [
-          "cyrillic_to_latin"
+          "cyrillic_to_latin",
+          "diacritic_fold"
         ],
         "tokenizer": "ngram_tokenizer",
         "filter": [
@@ -82,7 +95,8 @@
       "serbian_search_analyzer": {
         "type": "custom",
         "char_filter": [
-          "cyrillic_to_latin"
+          "cyrillic_to_latin",
+          "diacritic_fold"
         ],
         "tokenizer": "standard",
         "filter": [
@@ -93,7 +107,8 @@
       "serbian_phrase_analyzer": {
         "type": "custom",
         "char_filter": [
-          "cyrillic_to_latin"
+          "cyrillic_to_latin",
+          "diacritic_fold"
         ],
         "tokenizer": "standard",
         "filter": [

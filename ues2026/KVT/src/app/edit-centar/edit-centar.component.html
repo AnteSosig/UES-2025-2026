@@ -1,6 +1,6 @@
 <div class="edit-container" *ngIf="centarDetails">
   <div class="page-header">
-    <h1>✏️ Izmeni Centar</h1>
+    <h1>✏️ Izmeni Mesto</h1>
     <h2 class="centar-name">{{ centarDetails.ime }}</h2>
   </div>
 
@@ -18,7 +18,7 @@
     <form [formGroup]="editForm" (ngSubmit)="onSubmitEdit()">
       <div class="form-grid">
         <div class="form-group">
-          <label for="ime">Naziv centra</label>
+          <label for="ime">Naziv mesta</label>
           <input id="ime" type="text" formControlName="ime" placeholder="Unesite naziv...">
         </div>
 
@@ -34,13 +34,13 @@
 
         <div class="form-group full-width">
           <label for="ophis">Opis</label>
-          <textarea id="ophis" formControlName="ophis" rows="4" placeholder="Unesite opis centra..."></textarea>
+          <textarea id="ophis" formControlName="ophis" rows="4" placeholder="Unesite opis mesta..."></textarea>
         </div>
 
         <div class="form-group checkbox-group">
           <label class="checkbox-label">
             <input id="obrisi" type="checkbox" formControlName="obrisi">
-            <span>Aktivan centar</span>
+            <span>Aktivno mesto</span>
           </label>
         </div>
       </div>
@@ -127,7 +127,7 @@
 
     <div class="upload-area">
       <div class="form-group">
-        <label for="imageInput">🖼️ Slika centra (JPG/PNG)</label>
+        <label for="imageInput">🖼️ Slika mesta (JPG/PNG)</label>
         <input type="file" id="imageInput" accept="image/jpeg,image/png" (change)="onImageSelected($event)" class="file-input">
         <small *ngIf="selectedImage" class="file-selected">✓ Izabrana slika: {{ selectedImage.name }}</small>
       </div>
